@@ -3,10 +3,10 @@ from matplotlib import style
 
 style.use("ggplot")
 
-model_name = "model-1601980962"
+model_name = "model-1602613853"
 
 def create_acc_loss_graph(model_name):
-    contents = open("model.log","r").read().split('\n')
+    contents = open("logs/model_emotions.log","r").read().split('\n')
     times = []
     accuracies = []
     losses = []
@@ -16,6 +16,7 @@ def create_acc_loss_graph(model_name):
 
     for c in contents:
         if model_name in c:
+        #if len(c) > 0:
             name,timestamp,acc,loss,val_acc, val_loss = c.split(",")
 
             times.append(float(timestamp))
