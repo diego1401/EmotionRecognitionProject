@@ -49,19 +49,35 @@ class VisualizationDemo(object):
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
         visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
-        if "panoptic_seg" in predictions:
-            panoptic_seg, segments_info = predictions["panoptic_seg"]
-            vis_output = visualizer.draw_panoptic_seg_predictions(
-                panoptic_seg.to(self.cpu_device), segments_info
-            )
-        else:
-            if "sem_seg" in predictions:
-                vis_output = visualizer.draw_sem_seg(
-                    predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
-                )
-            if "instances" in predictions:
-                instances = predictions["instances"].to(self.cpu_device)
-                vis_output = visualizer.draw_instance_predictions(predictions=instances)
+        # if "panoptic_seg" in predictions:
+        #     panoptic_seg, segments_info = predictions["panoptic_seg"]
+        #     vis_output = visualizer.draw_panoptic_seg_predictions(
+        #         panoptic_seg.to(self.cpu_device), segments_info
+        #     )
+        # else:
+            # if "sem_seg" in predictions:
+            #     vis_output = visualizer.draw_sem_seg(
+            #         predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
+            #     )
+
+        if "instances" in predictions:
+            predictions = predictions["instances"].to(self.cpu_device)
+            ########################################################################################################################################
+            pred_c = predictions.pred_classes
+                pred_b = predictions.pred_boxes
+                pred_people_box = torch.tensor([0,0,0,0]) #to init
+                
+                for c,b in zip(pred_c,pred_b):
+                    if c.item() == 0:
+                        pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
+                
+                pred_people_c = torch.zeros(len(pred_people_box))
+
+                predictions.pred_classes = pred_people_c
+                predictions.pred_boxes = pred_people_box
+                vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
+                ########################################################################################################################################
+            vis_output = visualizer.draw_instance_predictions(predictions=predictions)
 
         return predictions, vis_output
 
