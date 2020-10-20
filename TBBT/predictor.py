@@ -95,7 +95,16 @@ class VisualizationDemo(object):
                 )
             elif "instances" in predictions:
                 predictions = predictions["instances"].to(self.cpu_device)
-                vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
+                ########################################################################################################################################
+                pred_c = predictions.pred_classes
+                pred_b = predictions.pred_boxes
+                pred_people = torch.tensor([0,0,0,0]) #to init
+                for c,b in zip(pred_c,pred_b):
+                    pred_people = torch.cat((pred_people,b.unsqueeze(-2)))
+
+                vis_frame = video_visualizer.draw_instance_predictions(frame, pred_people)
+                ########################################################################################################################################
+                #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
             elif "sem_seg" in predictions:
                 vis_frame = video_visualizer.draw_sem_seg(
                     frame, predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
