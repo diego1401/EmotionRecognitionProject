@@ -100,6 +100,7 @@ class VisualizationDemo(object):
                 pred_b = predictions.pred_boxes
                 pred_people = torch.tensor([0,0,0,0]) #to init
                 for c,b in zip(pred_c,pred_b):
+                    if c.item() == 0
                     pred_people = torch.cat((pred_people,b.unsqueeze(-2)))
 
                 vis_frame = video_visualizer.draw_instance_predictions(frame, pred_people)
