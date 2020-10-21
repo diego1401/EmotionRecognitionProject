@@ -135,16 +135,17 @@ class VisualizationDemo(object):
                         predictions.pred_classes = pred_people_c
                     
                         vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
-                ########################################################################################################################################
-                #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
-            # elif "sem_seg" in predictions:
-            #     vis_frame = video_visualizer.draw_sem_seg(
-            #         frame, predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
-            #     )
+                        ########################################################################################################################################
+                        #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
+                        # elif "sem_seg" in predictions:
+                        #     vis_frame = video_visualizer.draw_sem_seg(
+                        #         frame, predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
+                        #     )
 
-            # Converts Matplotlib RGB format to OpenCV BGR format
-            vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
-            return vis_frame
+                        # Converts Matplotlib RGB format to OpenCV BGR format
+                    vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
+                    return vis_frame
+            return None
 
         frame_gen = self._frame_from_video(video)
         if self.parallel:
