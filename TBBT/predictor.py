@@ -120,8 +120,11 @@ class VisualizationDemo(object):
                 for c,b in zip(pred_c,pred_b):
                     if c.item() == 0:
                         pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
-                
+                print("---------------------------------------------------------------------------")
                 print(predictions.pred_classes)
+                print(predictions.pred_boxes)
+                print("---------------------------------------------------------------------------")
+
                 pred_people_c = torch.zeros(len(pred_people_box))
 
                 predictions.pred_boxes = d2.Boxes(pred_people_box)
