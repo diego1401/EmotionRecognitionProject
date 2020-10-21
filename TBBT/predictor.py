@@ -122,7 +122,7 @@ class VisualizationDemo(object):
                     print("---------------------------------------------------------------------------")
                     print("class",predictions.pred_classes)
                     print("box",predictions.pred_boxes)
-                    print("b",b)
+                    print("b",pred_b)
                     print("---------------------------------------------------------------------------")
                     for c,b in zip(pred_c,pred_b):
                         if c.item() == 0:
