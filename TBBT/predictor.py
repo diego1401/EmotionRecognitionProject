@@ -151,7 +151,7 @@ class VisualizationDemo(object):
                         # predictions.set("pred_boxes",d2.Boxes(pred_people_box))
                         # predictions.pred_classes = pred_people_c
 
-                        new_pred = d2.Instances(predictions.image_size,pred_people_box,scores,pred_people_classes,pred_people_masks)
+                        new_pred = d2.Instances(predictions.image_size,[pred_people_box,scores,pred_people_classes,pred_people_masks])
                         vis_frame = video_visualizer.draw_instance_predictions(frame, new_pred)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
