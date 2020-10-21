@@ -136,12 +136,13 @@ class VisualizationDemo(object):
                         
 
                         pred_people_c = torch.zeros(len(pred_people_box),dtype=torch.int)
-
-                        predictions.pred_boxes = d2.Boxes(pred_people_box)
-                        predictions.pred_classes = pred_people_c
                         print("---------------------------------------------------------------------------")
                         print(predictions.pred_classes)
+                        print(predictions.pred_boxes)
+                        print(d2.Boxes(pred_people_box))
                         print("---------------------------------------------------------------------------")
+                        predictions.pred_boxes = d2.Boxes(pred_people_box)
+                        predictions.pred_classes = pred_people_c
                         vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
