@@ -141,7 +141,7 @@ class VisualizationDemo(object):
                         print(predictions.pred_boxes)
                         print(d2.Boxes(pred_people_box))
                         print("---------------------------------------------------------------------------")
-                        predictions.pred_boxes = d2.Boxes(pred_people_box)
+                        predictions.set("pred_boxes",d2.Boxes(pred_people_box))
                         predictions.pred_classes = pred_people_c
                         vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                         ########################################################################################################################################
