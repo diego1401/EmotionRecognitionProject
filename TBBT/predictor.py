@@ -127,7 +127,7 @@ class VisualizationDemo(object):
                     person_seen = False
                     
 
-                    for c,b,s,m,k in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.pred_masks,predictions.pred_keypoints):
+                    for c,b,s,m in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.pred_masks):
                         if c.item() == 0:
                             
                             print("---------------------------------------------------------------------------")
@@ -135,23 +135,23 @@ class VisualizationDemo(object):
                             print("box",predictions.pred_boxes)
                             print("score",prediction.scores)
                             print("masks",predictions.pred_masks)
-                            print("keys",predictions.pred_keypoints)
+                            #print("keys",predictions.pred_keypoints)
                             print("---------------------------------------------------------------------------")
                             person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
                             scores = torch.cat((scores,s))
                             pred_people_masks = torch.cat((pred_people_masks,m))
-                            pred_people_keypoints = torch.cat((pred_people_keypoints,k))
+                            #pred_people_keypoints = torch.cat((pred_people_keypoints,k))
 
                     if person_seen:
                         
 
                         pred_people_classes = torch.zeros(len(pred_people_box),dtype=torch.int)
 
-                        predictions.set("pred_boxes",d2.Boxes(pred_people_box))
-                        predictions.pred_classes = pred_people_c
+                        # predictions.set("pred_boxes",d2.Boxes(pred_people_box))
+                        # predictions.pred_classes = pred_people_c
 
-                        new_pred = d2.Instances(predictions.image_size,pred_people_box,scores,pred_people_classes,pred_people_masks,pred_people_keypoints)
+                        new_pred = d2.Instances(predictions.image_size,pred_people_box,scores,pred_people_classes,pred_people_masks)
                         vis_frame = video_visualizer.draw_instance_predictions(frame, new_pred)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
