@@ -113,22 +113,23 @@ class VisualizationDemo(object):
             if "instances" in predictions:
                 predictions = predictions["instances"].to(self.cpu_device)
                 ########################################################################################################################################
-                pred_c = predictions.pred_classes
-                pred_b = predictions.pred_boxes
-                pred_people_box = torch.tensor([0,0,0,0]) #to init
                 
-                for c,b in zip(pred_c,pred_b):
-                    if c.item() == 0:
-                        pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
-                print("---------------------------------------------------------------------------")
-                print(predictions.pred_classes)
-                print(predictions.pred_boxes)
-                print("---------------------------------------------------------------------------")
+                if len(predictions.pred_classes) >= 1:
+                    pred_c = predictions.pred_classes
+                    pred_b = predictions.pred_boxes
+                    pred_people_box = torch.tensor([0,0,0,0]) #to init
+                    for c,b in zip(pred_c,pred_b):
+                        if c.item() == 0:
+                            pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
+                    print("---------------------------------------------------------------------------")
+                    print(predictions.pred_classes)
+                    print(predictions.pred_boxes)
+                    print("---------------------------------------------------------------------------")
 
-                pred_people_c = torch.zeros(len(pred_people_box))
+                    pred_people_c = torch.zeros(len(pred_people_box))
 
-                predictions.pred_boxes = d2.Boxes(pred_people_box)
-                predictions.pred_classes = pred_people_c
+                    predictions.pred_boxes = d2.Boxes(pred_people_box)
+                    predictions.pred_classes = pred_people_c
                 
                 
                 vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
