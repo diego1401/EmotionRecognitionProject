@@ -119,14 +119,16 @@ class VisualizationDemo(object):
                     pred_b = predictions.pred_boxes
                     pred_people_box = torch.tensor([0,0,0,0]) #to init
                     person_seen = False
-                    print("---------------------------------------------------------------------------")
-                    print("class",predictions.pred_classes)
-                    print("box",predictions.pred_boxes)
-                    print("b",pred_b)
-                    print("---------------------------------------------------------------------------")
+                    
 
                     for c,b in zip(pred_c,pred_b):
                         if c.item() == 0:
+                            
+                            print("---------------------------------------------------------------------------")
+                            print("class",predictions.pred_classes)
+                            print("box",predictions.pred_boxes)
+                            print("b",pred_b)
+                            print("---------------------------------------------------------------------------")
                             person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b))
 
