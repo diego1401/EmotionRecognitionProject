@@ -123,7 +123,7 @@ class VisualizationDemo(object):
                 pred_people_c = torch.zeros(len(pred_people_box))
 
                 predictions.pred_classes = pred_people_c
-                predictions.pred_boxes = pred_people_box
+                predictions.pred_boxes = Boxes(pred_people_box)
                 print(predictions.pred_classes)
                 vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                 ########################################################################################################################################
