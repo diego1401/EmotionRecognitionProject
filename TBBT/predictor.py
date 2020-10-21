@@ -10,6 +10,7 @@ from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.video_visualizer import VideoVisualizer
 from detectron2.utils.visualizer import ColorMode, Visualizer
+import detectron2.structures.Boxes as Boxes
 
 
 class VisualizationDemo(object):
@@ -72,7 +73,7 @@ class VisualizationDemo(object):
                     pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
             
             pred_people_c = torch.zeros(len(pred_people_box))
-
+            print(pred_people_c)
             predictions.pred_classes = pred_people_c
             predictions.pred_boxes = pred_people_box
             vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
@@ -120,11 +121,13 @@ class VisualizationDemo(object):
                     if c.item() == 0:
                         pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
                 
+                print(predictions.pred_classes)
                 pred_people_c = torch.zeros(len(pred_people_box))
+
                 predictions.pred_boxes = Boxes(pred_people_box)
                 predictions.pred_classes = pred_people_c
                 
-                print(predictions.pred_classes)
+                
                 vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                 ########################################################################################################################################
                 #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
