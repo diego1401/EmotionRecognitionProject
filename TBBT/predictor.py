@@ -124,10 +124,12 @@ class VisualizationDemo(object):
                     print("box",predictions.pred_boxes)
                     print("b",pred_b)
                     print("---------------------------------------------------------------------------")
+                    counter = 0
                     for c,b in zip(pred_c,pred_b):
                         if c.item() == 0:
                             person_seen = True
-                            pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
+                            pred_people_box = torch.cat((pred_people_box[counter],b.unsqueeze(-2)))
+                        counter += 1
                     if person_seen:
                         
 
