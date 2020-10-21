@@ -135,7 +135,7 @@ class VisualizationDemo(object):
                     if person_seen:
                         
 
-                        pred_people_c = torch.zeros(len(pred_people_box))
+                        pred_people_c = torch.zeros(len(pred_people_box),dtype=torch.int)
 
                         predictions.pred_boxes = d2.Boxes(pred_people_box)
                         predictions.pred_classes = pred_people_c
