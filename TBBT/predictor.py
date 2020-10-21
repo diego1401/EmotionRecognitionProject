@@ -133,7 +133,7 @@ class VisualizationDemo(object):
                             print("---------------------------------------------------------------------------")
                             print("class",predictions.pred_classes)
                             print("box",predictions.pred_boxes)
-                            print("score",prediction.scores)
+                            print("score",predictions.scores)
                             print("masks",predictions.pred_masks)
                             #print("keys",predictions.pred_keypoints)
                             print("---------------------------------------------------------------------------")
