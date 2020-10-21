@@ -130,7 +130,7 @@ class VisualizationDemo(object):
                             print("b",pred_b)
                             print("---------------------------------------------------------------------------")
                             person_seen = True
-                            pred_people_box = torch.cat((pred_people_box,b))
+                            pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
 
                     if person_seen:
                         
