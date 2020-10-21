@@ -117,7 +117,7 @@ class VisualizationDemo(object):
                 if len(predictions.pred_classes) >= 1:
                     pred_c = predictions.pred_classes
                     pred_b = predictions.pred_boxes
-                    pred_people_box = torch.tensor([0,0,0,0]) #to init
+                    pred_people_box = torch.tensor([[0,0,0,0]]) #to init
                     person_seen = False
                     
 
