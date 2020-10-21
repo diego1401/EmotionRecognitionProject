@@ -139,7 +139,9 @@ class VisualizationDemo(object):
 
                         predictions.pred_boxes = d2.Boxes(pred_people_box)
                         predictions.pred_classes = pred_people_c
-                    
+                        print("---------------------------------------------------------------------------")
+                        print(predictions.pred_classes)
+                        print("---------------------------------------------------------------------------")
                         vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
@@ -149,9 +151,7 @@ class VisualizationDemo(object):
                         #     )
 
                         # Converts Matplotlib RGB format to OpenCV BGR format
-                        print("---------------------------------------------------------------------------")
-                        print(predictions.pred_classes)
-                        print("---------------------------------------------------------------------------")
+                        
 
 
                         vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
