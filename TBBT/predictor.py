@@ -117,33 +117,42 @@ class VisualizationDemo(object):
                 if len(predictions.pred_classes) >= 1:
                     pred_c = predictions.pred_classes
                     pred_b = predictions.pred_boxes
-                    pred_people_box = torch.tensor([]) #to init
+                    #to init
+                    pred_people_box = torch.tensor([])
+                    scores = torch.tensor([])
+                    #pred_people_classes is easy to build
+                    pred_people_masks = torch.tensor([])
+                    pred_people_keypoints = torch.tensor([])
+                    
                     person_seen = False
                     
 
-                    for c,b in zip(pred_c,pred_b):
+                    for c,b,s,m,k in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.masks,predictions.keypoints):
                         if c.item() == 0:
                             
-                            # print("---------------------------------------------------------------------------")
-                            # print("class",predictions.pred_classes)
-                            # print("box",predictions.pred_boxes)
-                            # print("b",pred_b)
-                            # print("---------------------------------------------------------------------------")
+                            print("---------------------------------------------------------------------------")
+                            print("class",predictions.pred_classes)
+                            print("box",predictions.pred_boxes)
+                            print("score",prediction.scores)
+                            print("masks",predictions.pred_masks)
+                            print("keys",predictions.pred_keypoints)
+                            print("---------------------------------------------------------------------------")
                             person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
+                            scores = torch.cat((scores,s))
+                            pred_people_masks = torch.cat((pred_people_masks,m))
+                            pred_people_keypoints = torch.cat((pred_people_keypoints,k))
 
                     if person_seen:
                         
 
-                        pred_people_c = torch.zeros(len(pred_people_box),dtype=torch.int)
-                        print("---------------------------------------------------------------------------")
-                        print(predictions.pred_classes)
-                        print(predictions.pred_boxes)
-                        print(d2.Boxes(pred_people_box))
-                        print("---------------------------------------------------------------------------")
+                        pred_people_classes = torch.zeros(len(pred_people_box),dtype=torch.int)
+
                         predictions.set("pred_boxes",d2.Boxes(pred_people_box))
                         predictions.pred_classes = pred_people_c
-                        vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
+
+                        new_pred = d2.Instances(predictions.image_size,pred_people_box,scores,pred_people_classes,pred_people_masks,pred_people_keypoints)
+                        vis_frame = video_visualizer.draw_instance_predictions(frame, new_pred)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                         # elif "sem_seg" in predictions:
