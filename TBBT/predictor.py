@@ -124,12 +124,12 @@ class VisualizationDemo(object):
                     for c,b in zip(pred_c,pred_b):
                         if c.item() == 0:
                             
-                            print("---------------------------------------------------------------------------")
-                            print("class",predictions.pred_classes)
-                            print("box",predictions.pred_boxes)
-                            print("b",pred_b)
-                            print("---------------------------------------------------------------------------")
-                            person_seen = True
+                            # print("---------------------------------------------------------------------------")
+                            # print("class",predictions.pred_classes)
+                            # print("box",predictions.pred_boxes)
+                            # print("b",pred_b)
+                            # print("---------------------------------------------------------------------------")
+                            # person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
 
                     if person_seen:
@@ -149,6 +149,11 @@ class VisualizationDemo(object):
                         #     )
 
                         # Converts Matplotlib RGB format to OpenCV BGR format
+                        print("---------------------------------------------------------------------------")
+                        print(predictions.pred_classes)
+                        print("---------------------------------------------------------------------------")
+
+
                         vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
                         return vis_frame
             return None
