@@ -121,13 +121,13 @@ class VisualizationDemo(object):
                     pred_people_box = torch.tensor([])
                     scores = torch.tensor([])
                     #pred_people_classes is easy to build
-                    pred_people_masks = torch.tensor([])
-                    pred_people_keypoints = torch.tensor([])
+                    #pred_people_masks = torch.tensor([])
+                    #pred_people_keypoints = torch.tensor([])
                     
                     person_seen = False
                     
 
-                    for c,b,s,m in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.pred_masks):
+                    for c,b,s in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores):
                         if c.item() == 0:
                             
                             print("---------------------------------------------------------------------------")
@@ -140,7 +140,7 @@ class VisualizationDemo(object):
                             person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
                             scores = torch.cat((scores,s.unsqueeze(-1)))
-                            pred_people_masks = torch.cat((pred_people_masks,m))
+                            #pred_people_masks = torch.cat((pred_people_masks,m))
                             #pred_people_keypoints = torch.cat((pred_people_keypoints,k))
 
                     if person_seen:
@@ -155,7 +155,7 @@ class VisualizationDemo(object):
                         new_pred.pred_classes = pred_people_classes
                         new_pred.pred_boxes = pred_people_box
                         new_pred.scores = scores
-                        new_pred.pred_masks = pred_people_masks
+                        #new_pred.pred_masks = pred_people_masks
                         vis_frame = video_visualizer.draw_instance_predictions(frame, new_pred)
                         ########################################################################################################################################
                         #vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
