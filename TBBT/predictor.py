@@ -139,7 +139,7 @@ class VisualizationDemo(object):
                             print("---------------------------------------------------------------------------")
                             person_seen = True
                             pred_people_box = torch.cat((pred_people_box,b.unsqueeze(-2)))
-                            scores = torch.cat((scores,s))
+                            scores = torch.cat((scores,s.unsqueeze(-1)))
                             pred_people_masks = torch.cat((pred_people_masks,m))
                             #pred_people_keypoints = torch.cat((pred_people_keypoints,k))
 
