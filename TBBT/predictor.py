@@ -127,7 +127,7 @@ class VisualizationDemo(object):
                     person_seen = False
                     
 
-                    for c,b,s,m,k in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.masks,predictions.keypoints):
+                    for c,b,s,m,k in zip(predictions.pred_classes,predictions.pred_boxes,predictions.scores,predictions.pred_masks,predictions.keypoints):
                         if c.item() == 0:
                             
                             print("---------------------------------------------------------------------------")
