@@ -10,7 +10,7 @@ from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.video_visualizer import VideoVisualizer
 from detectron2.utils.visualizer import ColorMode, Visualizer
-import detectron2.structures.Boxes as Boxes
+import detectron2.structures as d2
 
 
 class VisualizationDemo(object):
@@ -124,7 +124,7 @@ class VisualizationDemo(object):
                 print(predictions.pred_classes)
                 pred_people_c = torch.zeros(len(pred_people_box))
 
-                predictions.pred_boxes = Boxes(pred_people_box)
+                predictions.pred_boxes = d2.Boxes(pred_people_box)
                 predictions.pred_classes = pred_people_c
                 
                 
